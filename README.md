@@ -1,2 +1,47 @@
-# iran-climbing-news
-Iranian climbing &amp; mountaineering news aggregator bot
+# 🏔️ ایران Climbing News Bot
+
+ربات تلگرامی که اخبار کوهنوردی و حوادث کوهستان را از سایت‌های خبری ایران جمع‌آوری و فیلتر می‌کند.
+
+## منابع خبری
+
+| منبع | نوع |
+|------|-----|
+| ISNA | RSS |
+| مهر | RSS |
+| ایرنا | RSS |
+| یورونیوز فارسی | RSS |
+| خبرآنلاین | RSS |
+
+## نحوه کار
+
+1. هر ۶ ساعت RSS سایت‌ها را بررسی می‌کند
+2. اخبار مرتبط با کوهنوردی را با کلمات کلیدی فیلتر می‌کند
+3. اخبار تکراری (۳۶ ساعت اخیر) را حذف می‌کند
+4. اخبار جدید را به گروه تلگرام ارسال می‌کند
+
+## راه‌اندازی
+
+### Secrets مورد نیاز
+
+| Secret | توضیح |
+|--------|--------|
+| `BOT_TOKEN` | توکن ربات تلگرام از @BotFather |
+| `CHAT_ID` | آیدی عددی گروه تلگرام |
+
+### اجرا
+
+```bash
+pip install -r requirements.txt
+BOT_TOKEN=xxx CHAT_ID=xxx python main.py
+```
+
+## ساختار پروژه
+
+```
+├── main.py          # نقطه شروع
+├── config.py        # منابع، کلمات کلیدی، فرمت پیام
+├── scraper.py       # دریافت و پردازش RSS
+├── sender.py        # ارسال به تلگرام
+├── requirements.txt
+└── .github/workflows/ci.yml
+```
