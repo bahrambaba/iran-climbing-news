@@ -17,8 +17,7 @@ SOURCES = [
     {"name": "ISNA", "url": "https://www.isna.ir/rss/tp/9"},
     {"name": "مهر", "url": "https://www.mehrnews.com/rss/tp/12"},
     {"name": "ایرنا", "url": "https://www.irna.ir/rss"},
-    {"name": "یورونیوز فارسی", "url": "https://fa.euronews.com/rss"},
-    {"name": "خبرآنلاین", "url": "https://www.khabaronline.ir/rss"},
+{"name": "خبرآنلاین", "url": "https://www.khabaronline.ir/rss"},
     {"name": "مهر ورزشی", "url": "https://www.mehrnews.com/rss/tp/14"},
 ]
 
