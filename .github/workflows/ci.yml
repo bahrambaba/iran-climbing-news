@@ -19,6 +19,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Verify Telegram token
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+          echo "Token length: ${#BOT_TOKEN}"
+          echo "Token format check: $(echo $BOT_TOKEN | grep -cE '^[0-9]+:[A-Za-z0-9_-]+$')"
+          curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getMe" | python -c "import sys,json; d=json.load(sys.stdin); print(f'Bot OK: {d.get(\"ok\")} name={d.get(\"result\",{}).get(\"username\",\"?\")}')" 2>&1 || echo "getMe failed"
+
       - name: Run crawler
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
