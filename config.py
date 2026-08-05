@@ -21,39 +21,64 @@ SOURCES = [
     {"name": "مهر ورزشی", "url": "https://www.mehrnews.com/rss/tp/14"},
 ]
 
-# ── Climbing keywords (Farsi + English for mixed content) ──────
-# Only specific climbing terms — generic words like "ارتفاع" and "صعود" cause false positives
-CLIMBING_KEYWORDS = [
-    # کوهنوردی (very specific)
-    "کوهنوردی", "کوهنورد",
-    "سنگ‌نوردی", "سنگنوردی", "سنگ نوردی", "صخره‌نوردی",
-    "دیواره‌نوردی", "دیواره نوردی",
-    "یخ‌نوردی", "یخ نوردی",
-    # صعود خاص
-    "صعود به قله", "صعود زمستانه", "صعود از مسیر",
-    "فتح قله", "قله‌نوردی",
-    # حوادث کوه
+# ── Climbing keywords ───────────────────────────────────────────
+# Tier 1: standalone terms — always match (very specific to climbing)
+T1_KEYWORDS = [
+    "کوهنوردی", "کوهنورد", "سنگ‌نوردی", "سنگنوردی", "سنگ نوردی",
+    "صخره‌نوردی", "دیواره‌نوردی", "دیواره نوردی",
+    "یخ‌نوردی", "یخ نوردی", "هیking",
+    "mountaineering", "rock climbing", "ice climbing", "alpinism",
+    "climbing expedition", "mountain rescue",
+]
+
+# Tier 2: multi-word phrases — always match
+T2_KEYWORDS = [
+    "صعود به قله", "صعود زمستانه", "صعود از مسیر", "فتح قله",
+    "قله‌نوردی", "قله نوردی",
     "حوادث کوه", "حوادث کوهستان", "سقوط از کوه",
     "گم شدن در کوه", "گم شدن در ارتفاعات",
     "امداد کوهستان", "نجات کوهستان", "امداد کوهنورد",
     "تیم امداد کوه", "عملیات امداد کوهستان",
-    # تجهیزات
-    "کارابین", "طناب کوهنوردی", "گلایدر کوهنوردی",
-    # رشته‌کوه‌ها (keep these — specific enough in context)
-    "البرز", "زاگرس", "دماوند", "سبلان","رشته کوه البرز , " رشته کوه زاگرس" , "قله سبلان", "قله دماوند"
-    "هیمالیا",
-    # پناهگاه و اصطلاحات
-    "پناهگاه کوهستان" ,
-    # English
-    "ice climbing", "mountaineering", "mountain rescue",
-    "rock climbing", "alpine", "summit", "climbing expedition",
+    "طناب کوهنوردی", "گلایدر کوهنوردی",
+    "پناهگاه کوهستان",
+]
+
+# Tier 3: mountain names — only match when combined with climbing context words
+T3_MOUNTAIN_NAMES = [
+    "البرز", "زاگرس", "دماوند", "سبلان", "هیمالیا",
+]
+T3_CONTEXT_WORDS = [
+    "کوه", "قله", "صعود", "دیواره", "سنگ", "یخ", "ارتفاع",
+    "جلوه", "پناهگاه", "گردنه", "طناب", "کلاه", "باد", "برف",
+    "سرما", "خطر", "سقوط", "گم", "امداد", "نجات", "نجات کوهستان",
+    "ورزش", "اسپورت",
 ]
 
 
 def is_climbing_related(title: str, summary: str) -> bool:
-    """Check if news item is climbing-related."""
+    """Check if news item is climbing-related.
+
+    Tier 1: standalone climbing terms → match
+    Tier 2: multi-word climbing phrases → match
+    Tier 3: mountain names → match only if a climbing context word also present
+    """
     text = (title + " " + summary).lower()
-    return any(kw.lower() in text for kw in CLIMBING_KEYWORDS)
+
+    # T1: standalone
+    if any(kw.lower() in text for kw in T1_KEYWORDS):
+        return True
+
+    # T2: multi-word phrases
+    if any(kw.lower() in text for kw in T2_KEYWORDS):
+        return True
+
+    # T3: mountain name + context word
+    has_mountain = any(kw.lower() in text for kw in T3_MOUNTAIN_NAMES)
+    has_context = any(kw.lower() in text for kw in T3_CONTEXT_WORDS)
+    if has_mountain and has_context:
+        return True
+
+    return False
 
 
 def format_message(title: str, summary: str, source: str, url: str, pub_date: str = "") -> str:
