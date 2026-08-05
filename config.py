@@ -26,7 +26,7 @@ SOURCES = [
 # Only specific climbing terms — generic words like "ارتفاع" and "صعود" cause false positives
 CLIMBING_KEYWORDS = [
     # کوهنوردی (very specific)
-    "کوهنوردی", "کوهنورد", "阿尔پینیست", "阿尔پینیسم",
+    "کوهنوردی", "کوهنورد",
     "سنگ‌نوردی", "سنگنوردی", "سنگ نوردی", "صخره‌نوردی",
     "دیواره‌نوردی", "دیواره نوردی",
     "یخ‌نوردی", "یخ نوردی",
@@ -41,10 +41,10 @@ CLIMBING_KEYWORDS = [
     # تجهیزات
     "کارابین", "طناب کوهنوردی", "گلایدر کوهنوردی",
     # رشته‌کوه‌ها (keep these — specific enough in context)
-    "البرز", "زاگرس", "دماوند", "سبلان",
-    "هیمالیا", "کارپات",
+    "البرز", "زاگرس", "دماوند", "سبلان","رشته کوه البرز , " رشته کوه زاگرس" , "قله سبلان", "قله دماوند"
+    "هیمالیا",
     # پناهگاه و اصطلاحات
-    "پناهگاه کوهستان", "قلعه", "گردنه",
+    "پناهگاه کوهستان" ,
     # English
     "ice climbing", "mountaineering", "mountain rescue",
     "rock climbing", "alpine", "summit", "climbing expedition",
