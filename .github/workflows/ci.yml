@@ -25,11 +25,10 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python main.py
 
-      - name: Save seen URLs cache
+      - name: Commit seen URLs for dedup
         if: always()
-        uses: actions/cache@v4
-        with:
-          path: seen_urls.json
-          key: seen-${{ github.run_id }}
-          restore-keys: seen-
-          enableCrossOsArchive: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen_urls.json
+          git diff --staged --quiet || git commit -m "chore: update seen URLs [skip ci]" && git push
