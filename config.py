@@ -14,11 +14,14 @@ MAX_SEEN_AGE_HOURS = 36
 
 # ── Iranian news sources ───────────────────────────────────────
 SOURCES = [
-    {"name": "ISNA", "url": "https://www.isna.ir/rss/tp/9"},
+    {"name": "ISNA (دانشجویان)", "url": "https://www.isna.ir/rss/tp/9"},
     {"name": "مهر", "url": "https://www.mehrnews.com/rss/tp/12"},
     {"name": "ایرنا", "url": "https://www.irna.ir/rss"},
-{"name": "خبرآنلاین", "url": "https://www.khabaronline.ir/rss"},
+    {"name": "خبرآنلاین", "url": "https://www.khabaronline.ir/rss"},
     {"name": "مهر ورزشی", "url": "https://www.mehrnews.com/rss/tp/14"},
+    {"name": "تابناک", "url": "https://www.tabnak.ir/fa/rss/allnews"},
+    {"name": "همشهری آنلاین", "url": "https://www.hamshahrionline.ir/rss"},
+    {"name": "همشهری ورزشی", "url": "https://www.hamshahrionline.ir/rss/tp/10"},
 ]
 
 # ── Climbing keywords ───────────────────────────────────────────

@@ -30,7 +30,7 @@ def fetch_feed(url: str, source_name: str) -> list[NewsItem]:
     items = []
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA})
-        data = urllib.request.urlopen(req, timeout=20, context=CTX).read()
+        data = urllib.request.urlopen(req, timeout=30, context=CTX).read()
         root = ET.fromstring(data)
 
         for item_el in root.iter("item"):
