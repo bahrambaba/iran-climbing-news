@@ -89,8 +89,6 @@ def format_message(title: str, summary: str, source: str, url: str, pub_date: st
     msg = f"🏔️ <b>{title}</b>\n\n"
     if summary:
         msg += f"{summary}\n\n"
-    if pub_date:
-        msg += f"🕒 {pub_date}\n"
     msg += f"📰 {source}\n"
     msg += f"🔗 <a href=\"{url}\">لینک خبر</a>\n\n"
     msg += "━━━━━━━━━━━━━━━\n"
